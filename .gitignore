@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Environment
+.env
+.venv/
+venv/
+ENV/
+env/
+venv.bak/
+*.env
+.DS_Store
+
+# IDE and Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Static files
+static/
+
+# Database files
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Coverage
+.coverage
+htmlcov/
+
+# Migrations
+migrations/

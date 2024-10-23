@@ -7,14 +7,15 @@ from datetime import datetime, timedelta
 import random
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import time
 
-# Carregar um modelo pré-treinado
+# Load a pre-trained model
 model = SentenceTransformer('all-MiniLM-L6-v2')  # Você pode escolher outro modelo se preferir
 
 def convert_to_vector(query):
-    # Converter sua consulta para um vetor usando o modelo carregado
-    vector = model.encode(query)  # O método encode converte a string em um vetor
-    return vector.tolist()  # Retorna como lista, se necessário
+    # Convert your query to a vector using the loaded model
+    vector = model.encode(query)  # The encode method converts the string into a vector
+    return vector.tolist()  # Returns as list if necessary
 
 # Function to generate a random publication date within the last year
 def generate_random_date():
@@ -32,9 +33,51 @@ def get_db_connection():
     )
     return conn
 
-# print("ok mundo")
-    
-try:
+def install_data_base():
+    conn = get_db_connection()
+
+    sql_file = 'init.sql'
+
+    with open(sql_file, 'r') as file:
+        sql_commands = file.read()
+
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(sql_commands)
+            conn.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        conn.close()
+
+def check_db_exists():
+    conn = get_db_connection()
+
+    sql_file = """
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables 
+            WHERE  table_schema = 'public'
+            AND    table_name  IN ('magazine_information', 'magazine_content')
+        );
+    """
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(sql_file)
+            conn.commit()
+            res = cursor.fetchall()
+            if res:  # Ensure there are results
+                columns = [desc[0] for desc in cursor.description]  # Get the column names
+                results = [dict(zip(columns, row)) for row in res]
+            else:
+                results = []
+
+            return results[0]['exists']
+    except Exception as e:
+        return False
+    finally:
+        conn.close()
+
+def import_data_from_json():
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -49,19 +92,19 @@ try:
         content = row['short_description']
         publication_date = generate_random_date()  # Generate a random publication date
         
-        # Gerar a representação vetorial para o conteúdo
+        # Generate the vector representation for the content
         vector_representation = convert_to_vector(content)
 
-        # Inserir dados na tabela magazine_information
+        # Insert data into the magazine_information table
         insert_info_query = """
             INSERT INTO magazine_information (title, author, publication_date, category)
             VALUES (%s, %s, %s, %s)
             RETURNING id;  -- Retorna o ID do registro inserido
         """
         cursor.execute(insert_info_query, (title, author, publication_date, category))
-        magazine_id = cursor.fetchone()[0]  # Obtém o ID do registro recém-inserido
+        magazine_id = cursor.fetchone()[0]  # Gets the ID of the newly inserted record
         
-        # Inserir os dados na tabela magazine_content
+        # Insert data into the magazine_content table
         insert_content_query = """
             INSERT INTO magazine_content (magazine_id, content, vector_representation)
             VALUES (%s, %s, %s)
@@ -72,5 +115,14 @@ try:
     cursor.close()
     conn.close()
     print("Dados inseridos com sucesso!")
+
+try:
+    check_db = check_db_exists()
+    if(check_db == False):
+        install_data_base()
+        time.sleep(5)
+        import_data_from_json()
+    else: 
+        import_data_from_json()
 except Exception as e:
         print(str(e))

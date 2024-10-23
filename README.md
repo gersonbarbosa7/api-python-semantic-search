@@ -52,9 +52,56 @@ or
 ## Installation Instructions
 
 ### Prerequisites
-Python 3.8 or higher
+Python 3.9 or higher
 PostgreSQL 12 or higher
 Redis (optional, for caching)
 
-##
-<tab><tab>code/text here
+### First of all
+1 - Clone this repository to your local machine.
+
+2 - Install the required dependencies using the following command:
+
+If using Mac/Linux
+````
+python -m venv .venv
+source .venv/bin/activate
+````
+
+after for all OS
+
+```
+pip install -r requirements.txt
+```
+
+3 - Run the following command to set up the database (you have Docker installed, right?)
+```
+docker-compose up -d
+```
+
+5 - Run the script example-data/import.py to create tables and insert some data into the database:
+```
+python3 example-data/import.py ## if you using mac or linux
+python example-data/import.py ## if using windows
+```
+
+This import will insert around of 500 rows. If you want to do a hard test, please download the file:
+[a link](https://drive.google.com/file/d/1pNsb7rV61O_LkVlrp7OR8w2PP889wHD4/view?usp=share_link)
+
+6 - Finally, Run the follow code:
+```
+uvicorn app.main:app --reload   
+```
+
+## Usage
+Run the script test_search.py to test a vectorized search.
+
+## Endpoint details
+To see details and to test, go tho the URL:
+[a link](http://12.0.0.1:8000/docs)
+
+## Others ways
+You can use [a link](https://insomnia.rest/download) or [a link](https://www.postman.com) to consume the api
+
+```
+http://12.0.0.1:8000/search
+```

@@ -22,7 +22,10 @@ CREATE TABLE magazine_content (
 
 -- Indexes (for performance improvement)
 -- Index on magazine_information.title for faster searches by title
-CREATE INDEX IF idx_magazine_information_title ON magazine_information(title);
+CREATE INDEX idx_magazine_information_title ON magazine_information(title);
+
+-- Index on magazine_information.author for faster searches by author
+CREATE INDEX idx_magazine_information_author ON magazine_information(author);
 
 -- Index on magazine_content.magazine_id for faster lookups on content linked to a magazine
 CREATE INDEX idx_magazine_content_magazine_id ON magazine_content(magazine_id);
