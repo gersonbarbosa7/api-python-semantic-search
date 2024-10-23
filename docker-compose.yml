@@ -1,0 +1,16 @@
+version: '3.9'  # Usando uma versão suportada
+
+services:
+  postgres:
+    image: ankane/pgvector:latest  # Usando a imagem pgvector correta
+    environment:
+      POSTGRES_USER: myuser          # Nome de usuário do PostgreSQL
+      POSTGRES_PASSWORD: mypassword   # Senha do usuário
+      POSTGRES_DB: mydb               # Nome do banco de dados inicial
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Volume persistente para os dados do PostgreSQL
+    ports:
+      - "5432:5432"                    # Mapeamento da porta
+
+volumes:
+  pgdata:  # Definição do volume
