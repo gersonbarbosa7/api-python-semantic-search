@@ -9,7 +9,7 @@ router = APIRouter(
 
 @router.post('/', summary="Hybrid Search Endpoint",
              description="The hybrid search endpoint allows users to perform searches combining traditional keyword-based methods and advanced semantic search techniques. By submitting a JSON payload, users can specify their query and choose the type of search they wish to perform.",
-             )
+             response_model=SearchResult)
 def search(search_query: SearchQuery):
     try: 
         if search_query.search_type == 'keywords':
