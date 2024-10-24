@@ -1,16 +1,25 @@
-version: '3.9'  # Usando uma versão suportada
+version: '3.9'  # Specify the supported version of Docker Compose
 
 services:
   postgres:
-    image: ankane/pgvector:latest  # Usando a imagem pgvector correta
+    image: ankane/pgvector:latest  # Use the correct pgvector image for PostgreSQL
     environment:
-      POSTGRES_USER: myuser          # Nome de usuário do PostgreSQL
-      POSTGRES_PASSWORD: mypassword   # Senha do usuário
-      POSTGRES_DB: mydb               # Nome do banco de dados inicial
+      POSTGRES_USER: myuser          # Username for PostgreSQL
+      POSTGRES_PASSWORD: mypassword   # Password for the PostgreSQL user
+      POSTGRES_DB: mydb               # Name of the initial database
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Volume persistente para os dados do PostgreSQL
+      - pgdata:/var/lib/postgresql/data  # Persistent volume for PostgreSQL data
     ports:
-      - "5432:5432"                    # Mapeamento da porta
+      - "5432:5432"                    # Map the PostgreSQL port
+
+  redis:
+    image: redis                      # Use the official Redis image
+    container_name: redis-container    # Name of the Redis container
+    ports:
+      - "6379:6379"                    # Map the default Redis port
+    volumes:
+      - redis-data:/data              # Volume to persist Redis data
 
 volumes:
-  pgdata:  # Definição do volume
+  pgdata:  # Definition of the PostgreSQL volume
+  redis-data:  # Definition of the Redis volume

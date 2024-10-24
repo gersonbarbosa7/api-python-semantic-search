@@ -11,8 +11,8 @@ The architecture of this application is built around a microservices approach, a
 - **FastAPI**: The web framework used for building the API, providing high performance and easy integration with async operations.
 - **PostgreSQL**: The relational database that stores magazine information and content. It includes a vector extension for semantic search.
 - **Sentence Transformers**: Used to generate vector representations of the content for enhanced semantic search capabilities.
-- **Redis (optional)**: Implemented for caching responses, improving the application's response time for frequent queries.
-- **Docker (optional)**: Containerization of the application for easy deployment and management.
+- **Redis**: Implemented for caching responses, improving the application's response time for frequent queries.
+- **Docker**: Containerization of the application for easy deployment and management.
 
 ## Flows
 
@@ -54,7 +54,8 @@ or
 ### Prerequisites
 Python 3.9 or higher
 PostgreSQL 12 or higher
-Redis (optional, for caching)
+Redis
+Docker
 
 ### First of all
 1 - Clone this repository to your local machine.
@@ -73,7 +74,7 @@ after for all OS
 pip install -r requirements.txt
 ```
 
-3 - Run the following command to set up the database (you have Docker installed, right?)
+3 - Run the following command to set up the database and redis (you have Docker installed, right?)
 ```
 docker-compose up -d
 ```
@@ -92,8 +93,20 @@ This import will insert around of 500 rows. If you want to do a hard test, pleas
 uvicorn app.main:app --reload   
 ```
 
-## Usage
-Run the script test_search.py to test a vectorized search.
+### USAGE: POST request to `/search` endpoint
+
+To search the database using the `/search` endpoint, you can use the following `POST` request format. This example uses the `semantic` search type.
+
+#### Request:
+
+**POST** `http://127.0.0.1:8000/search`
+
+```json
+{
+  "query": "Sea",
+  "search_type": "semantic"
+}
+```
 
 ## Endpoint details
 To see details and to test, go tho the URL:
