@@ -1,3 +1,4 @@
+import os
 import psycopg2
 import numpy as np
 import pandas as pd
@@ -6,6 +7,10 @@ from datetime import datetime, timedelta
 import random
 from sentence_transformers import SentenceTransformer
 import time
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Load a pre-trained model
 model = SentenceTransformer('all-MiniLM-L6-v2')  # Você pode escolher outro modelo se preferir
@@ -23,11 +28,11 @@ def generate_random_date():
 # Database connection
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname='mydb',
-        user='myuser',
-        password='mypassword',
-        host='0.0.0.0',
-        port='5432'
+        dbname=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        port=os.getenv('DB_PORT', '5432')
     )
     return conn
 

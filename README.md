@@ -79,14 +79,29 @@ pip install -r requirements.txt
 docker-compose up -d
 ```
 
-5 - Run the script example-data/import.py to create tables and insert some data into the database:
+4 - Creating your .env file using the sample:
 ```
-python3 example-data/import.py ## if you using mac or linux
-python example-data/import.py ## if using windows
+DB_NAME=mydb
+DB_USER=myuser
+DB_PASSWORD=mypassword
+DB_HOST=0.0.0.0
+DB_PORT=5432
+```
+
+5 - Run the script example-data/import.py to create tables and insert some data into the database:
+
+if you using mac or linux:
+```
+python3 example-data/import.py
+```
+
+if using windows
+```
+python example-data/import.py
 ```
 
 This import will insert around of 500 rows. If you want to do a hard test, please download the file:
-[a link](https://drive.google.com/file/d/1pNsb7rV61O_LkVlrp7OR8w2PP889wHD4/view?usp=share_link)
+[Complete sample json data](https://drive.google.com/file/d/1pNsb7rV61O_LkVlrp7OR8w2PP889wHD4/view?usp=share_link)
 
 6 - Finally, Run the follow code:
 ```
@@ -110,7 +125,7 @@ To search the database using the `/search` endpoint, you can use the following `
 
 ## Endpoint details
 To see details and to test, go tho the URL:
-[a link](http://12.0.0.1:8000/docs)
+[http://12.0.0.1:8000/docs](http://12.0.0.1:8000/docs)
 
 ## Others ways
 You can use [Insominio](https://insomnia.rest/download) or [Postman](https://www.postman.com) to consume the api
