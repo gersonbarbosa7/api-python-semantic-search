@@ -95,7 +95,7 @@ uvicorn app.main:app --reload
 
 ### USAGE: POST request to `/search` endpoint
 
-To search the database using the `/search` endpoint, you can use the following `POST` request format. This example uses the `semantic` search type.
+To search the database using the `/search` endpoint, you can use the following `POST` request format. This example uses the `semantic` search type. You alse can use `keywords` or `hybrid` passing it in attribute `search_type` to see differents results.
 
 #### Request:
 
@@ -103,7 +103,7 @@ To search the database using the `/search` endpoint, you can use the following `
 
 ```json
 {
-  "query": "Sea",
+  "query": "Is Neymar good player?",
   "search_type": "semantic"
 }
 ```
@@ -113,8 +113,10 @@ To see details and to test, go tho the URL:
 [a link](http://12.0.0.1:8000/docs)
 
 ## Others ways
-You can use [a link](https://insomnia.rest/download) or [a link](https://www.postman.com) to consume the api
+You can use [Insominio](https://insomnia.rest/download) or [Postman](https://www.postman.com) to consume the api
 
 ```
 http://12.0.0.1:8000/search
 ```
+
+Enjoy it!
