@@ -14,36 +14,6 @@ The architecture of this application is built around a microservices approach, a
 - **Redis**: Implemented for caching responses, improving the application's response time for frequent queries.
 - **Docker**: Containerization of the application for easy deployment and management.
 
-## Flows
-
-### 1. User Queries
-
-Users can perform searches by sending a POST request to the `/search` endpoint with the following JSON payload:
-
-```json
-{
-  "query": "Mary",
-  "search_type": "keywords"
-}
-```
-
-or
-
-```json
-{
-  "query": "Tell me about USA",
-  "search_type": "semantic"
-}
-```
-
-or
-
-```json
-{
-  "query": "When Neymar back to field?",
-  "search_type": "hybrid"
-}
-```
 
 ## Search Logic
 - **Keyword Search**: The application performs a keyword search across the title, author, and content fields.
@@ -123,9 +93,30 @@ To search the database using the `/search` endpoint, you can use the following `
 }
 ```
 
+### 1. Others examples
+
+Users can also perform searches by sending a POST request to the `/search` endpoint with the following JSON payload:
+
+```json
+{
+  "query": "Mary",
+  "search_type": "keywords"
+}
+```
+
+or
+
+```json
+{
+  "query": "When Neymar back to field?",
+  "search_type": "hybrid"
+}
+```
+
 ## Endpoint details
 To see details and to test, go tho the URL:
 [http://12.0.0.1:8000/docs](http://12.0.0.1:8000/docs)
+
 
 ## Others ways
 You can use [Insominio](https://insomnia.rest/download) or [Postman](https://www.postman.com) to consume the api
