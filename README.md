@@ -1,5 +1,9 @@
 # API Magazine Hybrid Search Application
 
+## Video presentation
+[https://youtu.be/yOffvcJevYg](https://youtu.be/yOffvcJevYg)
+
+
 ## Overview
 
 This application provides a robust hybrid search functionality using FastAPI, enabling users to search through a database of magazines by keywords or semantic vectors. The architecture is designed for scalability and performance, making it suitable for handling large datasets efficiently.
