@@ -4,9 +4,8 @@
 
 This application provides a robust hybrid search functionality using FastAPI, enabling users to search through a database of magazines by keywords or semantic vectors. The architecture is designed for scalability and performance, making it suitable for handling large datasets efficiently.
 
-## Architecture
 
-The architecture of this application is built around a microservices approach, allowing independent scaling and deployment of components. Here are the key components:
+## Architecture
 
 - **FastAPI**: The web framework used for building the API, providing high performance and easy integration with async operations.
 - **PostgreSQL**: The relational database that stores magazine information and content. It includes a vector extension for semantic search.
@@ -18,6 +17,8 @@ The architecture of this application is built around a microservices approach, a
 ## Search Logic
 - **Keyword Search**: The application performs a keyword search across the title, author, and content fields.
 - **Semantic Search**: The application uses vector representations to perform semantic searches, returning results based on vector similarity.
+- **Semantic Search**: The two features together.
+
 
 ## Installation Instructions
 
@@ -70,13 +71,18 @@ if using windows
 python example-data/import.py
 ```
 
+Look to the terminal, after run it and inform the number of rows you want to import!
+
+
 This import will insert around of 500 rows. If you want to do a hard test, please download the file:
 [Complete sample json data](https://drive.google.com/file/d/1pNsb7rV61O_LkVlrp7OR8w2PP889wHD4/view?usp=share_link)
+
 
 6 - Finally, Run the follow code:
 ```
 uvicorn app.main:app --reload   
 ```
+
 
 ### USAGE: POST request to `/search` endpoint
 
@@ -89,9 +95,11 @@ To search the database using the `/search` endpoint, you can use the following `
 ```json
 {
   "query": "Is Neymar good player?",
-  "search_type": "semantic"
+  "search_type": "semantic",
+  "page": 0
 }
 ```
+
 
 ### 1. Others examples
 
@@ -100,7 +108,8 @@ Users can also perform searches by sending a POST request to the `/search` endpo
 ```json
 {
   "query": "Mary",
-  "search_type": "keywords"
+  "search_type": "keywords",
+  "page": 0
 }
 ```
 
@@ -108,8 +117,9 @@ or
 
 ```json
 {
-  "query": "When Neymar back to field?",
-  "search_type": "hybrid"
+	"query":"Tell about the world!",
+	"search_type":"hybrid",
+	"page": 0
 }
 ```
 
@@ -119,7 +129,7 @@ To see details and to test, go tho the URL:
 
 
 ## Others ways
-You can use [Insominio](https://insomnia.rest/download) or [Postman](https://www.postman.com) to consume the api
+You can use [Insominia](https://insomnia.rest/download) or [Postman](https://www.postman.com) to consume the api
 
 ```
 http://12.0.0.1:8000/search

@@ -13,3 +13,5 @@ class BaseSearch(BaseModel):
 
 class SearchResult(BaseModel):
     results: Optional[List[BaseSearch]]
+    limit: int = 10
+    total_rows: int
