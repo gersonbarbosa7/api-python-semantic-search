@@ -77,6 +77,8 @@ python example-data/import.py
 
 Look to the terminal, after run it and inform the number of rows you want to import!
 
+De schemas, indexes and FK's will be created automatically. If you you prefer to create, please look the file init.sql.
+
 
 This import will insert around of 500 rows. If you want to do a hard test, please download the file:
 [Complete sample json data](https://drive.google.com/file/d/1pNsb7rV61O_LkVlrp7OR8w2PP889wHD4/view?usp=share_link)
